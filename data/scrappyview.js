@@ -222,12 +222,8 @@ var scrappyview = {
 		}
 	},
 	disable:function(calledFromContentScript){
-		var currview = this.view_map[String(this.step_num)];
-		console.log('[scrappy.js] step_num ' + this.step_num);
-		console.log('[scrappy.js] currview ' + currview);
-		
+		var currview = this.view_map[String(this.step_num)];		
 		console.log('[scrappy.js] disabledAddon (calledFromContentScript = ' + calledFromContentScript + ')');
-		
 		this[currview].unrender(this,true);
 		$(this.selectors.SB).slideUp(this.SLIDE_SPEED);	
 		this.progressBar.close();
