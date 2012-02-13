@@ -1,10 +1,3 @@
-	const instructions = '<p class="scrappy_sidebar">Welcome to Scrappy the web scraper!\
-	Using Scrappy, you can gather data from the web in three short steps. </p>\
-	<p class="scrappy_sidebar"><b>Step 1: Find a page -</b><div/> Navigate to a website that you wish to scrape and then click continue.';
-	const link_inst = '<p class="scrappy_sidebar"><b>Step 3: Get URLs to scrape -</b><div/> Go to a page that lists many links to pages analagous to your examples.</p>';
-	const ready_inst = '<p class="scrappy_sidebar">Awesome! You\'re ready to scrape!</p>';
-	const content_inst ='<p class="scrappy_sidebar"><b>Required:</b> Then please click on the on content that you wish to scrape.</p>';
-	
 self.on('message', function(status){
 	if(status == '0' || status == '1' || status == '2'||status == '3'||status=='4'){
 		scrappyview.init();
