@@ -48,8 +48,10 @@ var scrappyview = {
 			var view_num = parseInt($(e.currentTarget).closest(".scr_slide").attr("view"));
 			var success = that[that.view_map[view_num]].unrender(that,true);
 			if(success){
-				that[that.view_map[view_num-1]].render(that);
-				$('.scr_slider').attr('class', 'scrappy_sidebar scr_slider scr_s'+(view_num-1));
+				view_num--;
+				that[that.view_map[view_num]].render(that);
+				console.log("clicked back");
+				$('.scr_slider').attr('class', 'scrappy_sidebar scr_slider scr_s'+view_num);
 			}else{
 				return;
 			}
@@ -145,10 +147,7 @@ var scrappyview = {
 	
 	getstarted_view: {
 		render: function(controller){
-			$(".scrappy_sidebar .heading").text("Step 1: Find a page");
 			$("#scrappy_title").html("Scrappy - Welcome!");
-			$("#scrappy_inst").html(instructions);
-			$("#scrappy_back").hide();	
 		},
 		unrender: function(controller,forceclose){
 			return true;
