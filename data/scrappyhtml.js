@@ -12,7 +12,7 @@ var scrappyhtml = "<div id='scrappyMinDiv' title='Maximize Scrappy' style='color
 					<p class='scrappy_sidebar'>\
 						Welcome to Scrappy the web scraper!\
 						Using Scrappy, you can gather data from the web in three short steps.\
-						<div class='scr_small_text'>For more info visit <a href='http://scrappyscraper.com'>scrappyscraper.com</a></div>\
+						<div class='scr_small_text'>For more info visit <a class='scrappy_sidebar' href='http://scrappyscraper.com'>scrappyscraper.com</a></div>\
 					</p>\
 					<div class='scr_step scrappy_sidebar'>Step 1: </div>\
 					<p class='scrappy_sidebar'>Navigate to a website that has content that you wish to scrape, and click continue.</p>\

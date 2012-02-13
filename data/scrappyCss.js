@@ -8,27 +8,29 @@ $('head').append('<style type="text/css">\
 	border-width: 3px;\
 	border-style: solid;\
 }\
-.scr_forward, .scr_back{\
+.scrappy_sidebar .scr_forward, .scrappy_sidebar .scr_back{\
 	position:absolute;\
+	text-decoration:none;\
+	color:black;\
 }\
-.scr_clickable{\
+.scrappy_sidebar .scr_clickable{\
 	cursor:pointer;\
 }\
-.scr_clickable:hover{\
+.scrappy_sidebar .scr_clickable:hover{\
 	background-color:#AAA;\
 }\
 \
-.scr_navigation{\
+.scrappy_sidebar .scr_navigation{\
 	height: 20px;\
 	position:relative;\
 }\
-.scr_forward{\
+.scrappy_sidebar .scr_forward{\
 	right:5px;\
 }\
-.scr_back{\
+.scrappy_sidebar .scr_back{\
 	left:5px;\
 }\
-.toggle_button{\
+.scrappy_sidebar .toggle_button{\
 	color:#C0C0C0;\
 	display:inline;\
 	cursor:pointer;\
@@ -43,6 +45,8 @@ $('head').append('<style type="text/css">\
 	width:190px;\
 	z-index:2147483640;\
 	background-color:grey;\
+	font-color:black;\
+	font-weght:normal;\
 }\
 .scrappy_sidebar .scr_step{\
 	font-size:11px;\
@@ -60,25 +64,25 @@ $('head').append('<style type="text/css">\
 	background-color:#009933;\
 	color: white;\
 }\
-.scr_slide{\
+.scrappy_sidebar .scr_slide{\
 	text-align:left;\
 	border-radius:5px;\
 	background:	#D8D8D8;\
 }\
-.scr_slide .scr_content{\
+.scrappy_sidebar .scr_slide .scr_content{\
 	padding:8px;\
 	position:relative;\
 }\
-.scr_small_text{\
+.scrappy_sidebar .scr_small_text{\
 	font-size:8px;\
 }\
-#scrappyMenu{\
+.scrappy_sidebar #scrappyMenu{\
 	padding:8px;\
 }\
-#scrappyMenu ol{\
+.scrappy_sidebar #scrappyMenu ol{\
 	padding-left:20px;\
 }\
-#ScrappyTitleBar \
+.scrappy_sidebar #scrappyTitleBar \
 {\
 	text-align:left;\
 	background-color:#585858;\
@@ -88,13 +92,13 @@ $('head').append('<style type="text/css">\
 	padding: 4px;\
 }\
 \
-#scrappyMinDiv{\
+.scrappy_sidebar #scrappyMinDiv{\
 	position:fixed;\
 	padding:3px;\
 	left:0px;\
 	top:0px;\
 }\
-#scrappyMin, #scrappyClose{\
+.scrappy_sidebar #scrappyMin, .scrappy_sidebar #scrappyClose{\
 	float:right;\
 }\
 .scrappy_highlight_good\
