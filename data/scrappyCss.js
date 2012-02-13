@@ -38,7 +38,7 @@ $('head').append('<style type="text/css">\
 #scrappySB\
 {\
 	position:fixed;\
-	color:	#585858;\
+	color: #585858;\
 	left:0px;\
 	border-radius: 3px;\
 	top:0px;\
@@ -91,12 +91,14 @@ $('head').append('<style type="text/css">\
 	margin:0px;\
 	padding: 4px;\
 }\
-\
 .scrappy_sidebar #scrappyMinDiv{\
 	position:fixed;\
-	padding:3px;\
+	color: #585858;\
 	left:0px;\
+	border-radius: 3px;\
 	top:0px;\
+	width:190px;\
+	z-index:2147483640;\
 }\
 .scrappy_sidebar #scrappyMin, .scrappy_sidebar #scrappyClose{\
 	float:right;\
