@@ -1,5 +1,3 @@
 This is the scrappy add-on.  It contains:
 
-* A program (lib/main.js).
-* A few tests.
-* Some meager documentation.
+Created by Amir Ghazvinian, Sean Holbert, and Nikil Viswanathan
