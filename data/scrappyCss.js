@@ -10,6 +10,8 @@ $('head').append('<style type="text/css">\
 }\
 .scrappy_sidebar .scr_forward, .scrappy_sidebar .scr_back{\
 	position:absolute;\
+	text-decoration:none;\
+	color:black;\
 }\
 .scrappy_sidebar .scr_clickable{\
 	cursor:pointer;\
@@ -33,7 +35,7 @@ $('head').append('<style type="text/css">\
 	display:inline;\
 	cursor:pointer;\
 }\
-.scrappy_sidebar #scrappySB\
+#scrappySB\
 {\
 	position:fixed;\
 	color:	#585858;\
@@ -81,7 +83,7 @@ $('head').append('<style type="text/css">\
 .scrappy_sidebar #scrappyTitleBar \
 {\
 	text-align:left;\
-	background-color:red;\
+	background-color:#585858;\
 	font:11px arial,sans-serif;\
 	color: #C0C0C0;\
 	margin:0px;\
