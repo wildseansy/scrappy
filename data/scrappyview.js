@@ -30,6 +30,27 @@ var scrappyview = {
 			return;
 		}
 		$("body").append(scrappyhtml);
+
+		//First time opening:
+		this._addEventHandlers();
+		$("#scrappy_example_URL").hide();
+		$("#scrappy_file_type").hide();
+		$("#scrappy_link-ready").hide();
+		$("#scrappy_back").hide();
+		this.$SB.slideDown(this.SLIDE_SPEED);
+	},
+	view_map:{
+		"1": "getstarted_view",
+		"2": "template_view",
+		"3": "link_view",
+		"4": "comfirm_view",
+		"5": "busyscraping_view",
+		"disable": "disable"
+	},
+	
+	_addEventHandlers: function(){
+		var that=this,
+			currview;
 		$('.scr_forward').click(function(e){
 			var view_num = parseInt($(e.currentTarget).closest(".scr_slide").attr("view"));
 			var success = that[that.view_map[view_num]].unrender(that);
@@ -56,27 +77,9 @@ var scrappyview = {
 				return;
 			}
 		});
-
-		//First time opening:
-		this._addEventHandlers();
-		$("#scrappy_example_URL").hide();
-		$("#scrappy_file_type").hide();
-		$("#scrappy_link-ready").hide();
-		$("#scrappy_back").hide();
-		this.$SB.slideDown(this.SLIDE_SPEED);
-	},
-	view_map:{
-		"1": "getstarted_view",
-		"2": "template_view",
-		"3": "link_view",
-		"4": "comfirm_view",
-		"5": "busyscraping_view",
-		"disable": "disable"
-	},
-	
-	_addEventHandlers: function(){
-		var that=this,
-			currview;
+		$("#scr_link_selection").click(function(){
+			scrapemgr.startLinkSelectionMode();
+		});
 		$("#scrappyMinDiv").click(function(){
 			$('#scrappySB').show();
 			$('#scrappyMinDiv').hide();
@@ -120,30 +123,6 @@ var scrappyview = {
 			return false;
 		});
 	},
-	//Click Actions:
-	clickNext: function(){
-		var currview = this.view_map[String(this.step_num)];
-		//Clean up anything in old view
-		if(this[currview].unrender(this)){
-			this.step_num++;
-			
-			//Prepare new view
-			currview = this.view_map[String(this.step_num)];
-			console.log("Continue clicked. Step num: "+this.step_num+", rendering: " + currview);
-			this[currview].render(this);
-			datamgr.save(step_num.toString(),datamgr.STATE);
-		}
-	},
-	clickBack: function(){
-		var currview = this.view_map[String(this.step_num)];
-		//Clean up anything in old view
-		this[currview].unrender(this);
-		this.step_num--;
-		currview = this.view_map[String(this.step_num)];
-		console.log("Back clicked. Step num: "+this.step_num+", rendering: " + currview);
-		this[currview].render(this);
-		datamgr.save(this.step_num.toString(),datamgr.STATE);
-	},
 	
 	getstarted_view: {
 		render: function(controller){
@@ -163,9 +142,9 @@ var scrappyview = {
 				scrapemgr.disableSuggest();
 			}else{
 				var success = scrapemgr.saveContentTemplate();
+				console.log("Contented save success = "+ success)
 				if(success){
 					scrapemgr.disableSuggest();
-					controller.$backbtn.hide();
 				}else{
 					return false;
 				}

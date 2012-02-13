@@ -38,6 +38,7 @@ var scrappyhtml = "<div id='scrappyMinDiv' title='Maximize Scrappy' style='color
 				<div class='scr_content scrappy_sidebar'>\
 				<div class='scrappy_sidebar scr_step'>Step 3: </div>\
 				<p class='scrappy_sidebar'>Navigate to a webpage with links you would like to scrape.  Select the links you wish to scrape.</p>\
+				<a id='scr_link_selection' href='#' class='scrappy_sidebar scr_button'>Use this page</a>'\
 				<p class='scrappy_sidebar'>You may also enter custom links here, one per line:</p>\
 				<textarea rows='3' cols='18'></textarea>\
 				<div class='scr_navigation scrappy_sidebar'>\

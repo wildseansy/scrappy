@@ -122,6 +122,7 @@ a.scr_button\
 	background:#E8E8E8;\
 	display:inline;\
 	padding:5px;\
+	text-decoration:none;\
 	border-radius:3px;\
 	width:60px;\
 	text-align:center;\

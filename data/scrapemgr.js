@@ -616,12 +616,6 @@ Functions to start content template mode
 		
 	startLinkSelectionMode: function(){
 		var allTypes = "a";
-		$("#scrappy_link-ready").remove()
-		$("#scrappyMenu").append('<div id="scrappy_link-ready" style="color:green" class="scrappy_sidebar">\
-		<p class="scrappy_sidebar">\
-		<b>Ready for link selection!</b></p>\
-		<p class="scrappy_sidebar">Select links to pages you want to scrape</p>');
-		$("a").attr("onclick", "return false");
 		
 		//var suggestedElements = getLinkSuggestions();
 		
