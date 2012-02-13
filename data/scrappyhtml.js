@@ -26,7 +26,7 @@ var scrappyhtml = "<div id='scrappyMinDiv' title='Maximize Scrappy' style='color
 				<div class='scr_content scrappy_sidebar'>\
 				<div class='scrappy_sidebar scr_step'>Step 2:</div>\
 				<p class ='scrappy_sidebar scrappy_sidebar'>Select elements on the page that you would like to scrape</p>\
-				<div class='scr_navigation'>\
+				<div class='scr_navigation scrappy_sidebar'>\
 					<a class='scr_button scr_back scrappy_sidebar' onclick='$(\'.scr_slider\').attr(\'class\', \'scrappy_sidebar scr_slider scr_s1\')'>&lt;&lt;Back\
 					</a>\
 					<a class='scr_button scr_forward scrappy_sidebar' onclick='$(\'.scr_slider\').attr(\'class\', \'scrappy_sidebar scr_slider scr_s3\')'>Continue &gt;&gt;\

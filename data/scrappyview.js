@@ -36,6 +36,8 @@ var scrappyview = {
 			if(success){
 				view_num++;
 				that[that.view_map[view_num]].render(that);
+				console.log(view_num);
+				console.log(that.view_map[view_num]);
 				$('.scr_slider').attr('class', 'scrappy_sidebar scr_slider scr_s'+view_num);
 			}else{
 				return;
