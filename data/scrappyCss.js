@@ -45,6 +45,8 @@ $('head').append('<style type="text/css">\
 	width:190px;\
 	z-index:2147483640;\
 	background-color:grey;\
+	font-color:black;\
+	font-weght:normal;\
 }\
 .scrappy_sidebar .scr_step{\
 	font-size:11px;\
