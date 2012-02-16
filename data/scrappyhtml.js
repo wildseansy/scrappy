@@ -1,4 +1,4 @@
-var scrappyhtml = "<div id='scrappyMinDiv' title='Maximize Scrappy' style='color:#C0C0C0;display:none;' class='scrappy_sidebar scrappy_topBar'>+</div>\
+var scrappyhtml = "<div id='scrappyMinDiv' title='Maximize Scrappy' style='color:#C0C0C0; display:none; width:190px; background-color:#585858;' class='scrappy_sidebar scrappy_topBar'>+</div>\
 <div id='scrappySB' class='scrappy_sidebar'>\
 	<div id='scrappyTitleBar' class='scrappy_sidebar'>\
 		<span id='scrappy_title' class='scrappy_sidebar'>Scrappy</span>\

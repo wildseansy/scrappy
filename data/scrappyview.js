@@ -5,6 +5,7 @@ var scrappyview = {
 	CONTENT_MODE:1,
 	CONFIRM: 3,
 	
+	step_num: 1,
 	SLIDE_SPEED: 200,
 	selectors: {
 		SB: "#scrappySB",
@@ -64,7 +65,7 @@ var scrappyview = {
 			}else{
 				return;
 			}
-			that.step_num=view_num;
+			that.step_num = view_num;
 			datamgr.save(view_num.toString(),datamgr.STATE);
 		});
 		$('.scr_back').click(function(e){
@@ -217,10 +218,10 @@ var scrappyview = {
 		}
 	},
 	disable:function(calledFromContentScript){
-		var currview = this.view_map[String(this.step_num)];
+		var currview = this.view_map[String(this.step_num)];		
 		console.log('[scrappy.js] disabledAddon (calledFromContentScript = ' + calledFromContentScript + ')');
 		this[currview].unrender(this,true);
-		this.$SB.slideUp(this.SLIDE_SPEED);	
+		$(this.selectors.SB).slideUp(this.SLIDE_SPEED);	
 		this.progressBar.close();
 		if(calledFromContentScript){
 			datamgr.save('',datamgr.ADDON_DISABLED);
