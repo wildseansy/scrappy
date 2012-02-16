@@ -2,6 +2,10 @@ $('head').append('<style type="text/css">\
 .scrappy_sidebar p {\
 	margin:0px 0 10px 0;\
 }\
+.scrappy_hl{\
+	transition: background-color .1s linear\
+	transition: border-color .1s linear\
+}\
 .scrappy_highlight_good, .scrappy_highlight_suggest\
 {\
 	border-radius:6px;\
@@ -13,13 +17,6 @@ $('head').append('<style type="text/css">\
 	text-decoration:none;\
 	color:black;\
 }\
-.scrappy_sidebar .scr_clickable{\
-	cursor:pointer;\
-}\
-.scrappy_sidebar .scr_clickable:hover{\
-	background-color:#AAA;\
-}\
-\
 .scrappy_sidebar .scr_navigation{\
 	height: 20px;\
 	position:relative;\
@@ -44,6 +41,7 @@ $('head').append('<style type="text/css">\
 	top:0px;\
 	width:190px;\
 	z-index:2147483640;\
+	x-overflow:hidden;\
 	background-color:grey;\
 	font-color:black;\
 	font-weght:normal;\
@@ -177,6 +175,46 @@ input, select, button {\
 .scr_disabled:hover{\
 	background-color:auto;\
 }\
+/*Background blackout*/\
+#scrape_blackout{\
+	top: 0px;\
+	left: 0px;\
+	width: 100%;\
+	height: 100%;\
+	background-color: black;\
+	opacity: 0.7;\
+	position: fixed;\
+	margin: 0px;\
+	zIndex: 2147483645;\
+}\
+#scrappy_progressbar{\
+	margin:auto;\
+	height:40px;\
+	width:400px;\
+	position:relative;\
+	zIndex:2147483647;\
+}\
+#scrape_progress{\
+	position: fixed;\
+	top: 100px;\
+	left: 300px;\
+	height: 80px;\
+	width: 500px;\
+	zIndex: 2147483646;\
+	background-color:#FFF;\
+	text-align: center;\
+	border: 1px solid black;\
+	border-radius: 3px;\
+	padding: 10px;\
+}\
+\
+#progress_text{\
+	color:red;\
+	padding:10px;\
+	font:18px arial,sans-serif;\
+	text-shadow: 0.04em 0.04em #AAA;\
+	-moz-transition: opacity 1.5s linear;\
+}\
 /*Slider CSS*/\
 .scr_slider{\
 	width:500%;\
@@ -185,7 +223,8 @@ input, select, button {\
 	-moz-transition: margin .2s ease-out;\
 }\
 .scr_slider.scr_s1 .scr_slide.scr_s1, .scr_slider.scr_s2 .scr_slide.scr_s2,\
-.scr_slider.scr_s3 .scr_slide.scr_s3, .scr_slider.scr_s4 .scr_slide.scr_s4{\
+.scr_slider.scr_s3 .scr_slide.scr_s3, .scr_slider.scr_s4 .scr_slide.scr_s4,\
+.scr_slider.scr_s5 .scr_slide.scr_s5 {\
 	opacity:1;\
 	filter: alpha(opacity=100);\
 }\
@@ -207,4 +246,7 @@ input, select, button {\
 }\
 .scr_slider.scr_s4{\
 	margin: 0 0 0 -300% !important;\
+}\
+.scr_slider.scr_s5{\
+	margin: 0 0 0 -400% !important;\
 }</style>');

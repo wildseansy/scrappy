@@ -4,6 +4,7 @@ var scrapemgr ={
 	CLASS_SUGGESTION: 'scrappy_highlight_suggest',
 	CLASS_TRANSPARENT: 'scrappy_transparent',
 	CLASS_OPAQUE: 'scrappy_opaque',
+	CLASS_HIGHLIGHTED: 'scrappy_hl',
 	CLASS_INACTIVE_HOVER: 'scrappy_hover',
 	counter: 0,
 	tableCounter: 0,
@@ -154,6 +155,7 @@ var scrapemgr ={
 	
 	//Is the selection an element marked for scraping?
 	_isSelectedGood:function(element){
+
 		return $(element).hasClass(this.CLASS_GOOD);
 	},
 	
@@ -315,7 +317,7 @@ Functions to start content template mode
 		suggestedElements = $(suggestedElements).not('.scrappy_sidebar');
 		
 		//----------------Prechosen Elements--------------
-		$(suggestedElements).addClass(this.CLASS_SUGGESTION + ' ' + this.CLASS_TRANSPARENT);
+		$(suggestedElements).addClass(this.CLASS_SUGGESTION + ' ' + this.CLASS_TRANSPARENT+' '+this.CLASS_HIGHLIGHTED);
 		
 		$(suggestedElements).attr('title',"Element Not Selected");
 		
@@ -346,6 +348,7 @@ Functions to start content template mode
 	//for if we ever want to use the annotator
 	//sendMessage(document.location.toString(),'show');
 				//Case 1 - Currently: Selected as good, Now: disselect
+				console.log(this);
 				if(that._isSelectedGood(this))
 				{
 					
@@ -567,24 +570,26 @@ Functions to start content template mode
 		var objects = document.evaluate(xpath, document, null, XPathResult.ANY_TYPE, null);
 		var thisObj = objects.iterateNext();
 		var selected = new Array();
-		var i = 0;
 		while (thisObj) {
-			selected[i] = thisObj;
-			i++;
+			selected.push(thisObj);
 			thisObj = objects.iterateNext();
 		}
-		
 		return selected;
 	},
  
-	highlightSimilarLinks: function(link){
-		var selected = getSimilarLinks(link);
-		
-		for(var i = 0; i < selected.length; i++){
-			var obj = selected[i];
-			$(obj).removeClass(this.CLASS_SUGGESTION);
-			$(obj).addClass(this.CLASS_GOOD);
+	highlightSimilarLinks: function(link,selected){
+		var i=0,len;
+		if(selected===undefined){
+			var selected = that.getSimilarLinks(link);
 		}
+		len=selected.length;
+		console.log("length: "+selected.length);
+		for(i = 0; i < len; i++){
+			var $obj = $(selected[i]);
+			$obj.removeClass(this.CLASS_SUGGESTION);
+			$obj.addClass(this.CLASS_GOOD);
+		}
+		return true;
 	},
 		
 	saveLinkData: function(){
@@ -616,7 +621,9 @@ Functions to start content template mode
 		
 	startLinkSelectionMode: function(){
 		var allTypes = "a";
-		
+		$(allTypes).attr("onclick", "return false");
+		var that=this,
+			$obj;
 		//var suggestedElements = getLinkSuggestions();
 		
 		//Hack for sidebar
@@ -631,21 +638,21 @@ Functions to start content template mode
 		//Can't use hover! Use -> over/ out!
 		$(allTypes).not('.scrappy_sidebar').mouseover(
 			function(event) {
-				var sim = getSimilarLinks(this);
-				if(this._isActiveElement(this)) {
-					$(this).addClass(this.CLASS_OPAQUE);
+				var sim = that.getSimilarLinks(this);
+				if(that._isActiveElement(this)) {
+					$(this).addClass(that.CLASS_OPAQUE);
 					for(var i = 0; i < sim.length; i++){
-						var obj = sim[i];
-						if(!$(obj).hasClass(this.CLASS_GOOD)){
-							$(obj).addClass(this.CLASS_OPAQUE);
+						$obj = $(sim[i]);
+						if(!$obj.hasClass(that.CLASS_GOOD)){
+							$obj.addClass(that.CLASS_OPAQUE);
 						}
 					}
 				} else {
-					$(this).addClass(this.CLASS_INACTIVE_HOVER);
+					$(this).addClass(that.CLASS_INACTIVE_HOVER);
 					for(var i = 0; i < sim.length; i++){
-						var obj = sim[i];
-						if(!$(obj).hasClass(this.CLASS_GOOD)){
-							$(obj).addClass(this.CLASS_INACTIVE_HOVER);
+						$obj = $(sim[i]);
+						if(!$obj.hasClass(that.CLASS_GOOD)){
+							$obj.addClass(that.CLASS_INACTIVE_HOVER);
 						}
 					}
 				}
@@ -655,18 +662,18 @@ Functions to start content template mode
 			});
 		$(allTypes).not('.scrappy_sidebar').mouseout(
 			function(event) {
-				var sim = getSimilarLinks(this);
-				if(this._isActiveElement(this)) {
-					$(this).removeClass(this.CLASS_OPAQUE);
+				var sim = that.getSimilarLinks(this);
+				if(that._isActiveElement(this)) {
+					$(this).removeClass(that.CLASS_OPAQUE);
 					for(var i = 0; i < sim.length; i++){
-						var obj = sim[i];
-						$(obj).removeClass(this.CLASS_OPAQUE);
+						$obj = $(sim[i]);
+						$obj.removeClass(that.CLASS_OPAQUE);
 					}
 				} else {
-					$(this).removeClass(this.CLASS_INACTIVE_HOVER);
+					$(this).removeClass(that.CLASS_INACTIVE_HOVER);
 					for(var i = 0; i < sim.length; i++){
-						var obj = sim[i];
-						$(obj).removeClass(this.CLASS_INACTIVE_HOVER);
+						$obj = $(sim[i]);
+						$obj.removeClass(that.CLASS_INACTIVE_HOVER);
 					}
 				}
 				
@@ -679,32 +686,28 @@ Functions to start content template mode
 		
 		//On a click to a div, table, span switch the highlight color
 		$(allTypes).not('.scrappy_sidebar').click(function(event) {
-			
+			//Don't bubble click up to outer divs
+			event.stopPropagation();
 			//Case 1 - Currently: Selected as good, Now: disselect
-			if(this._isSelectedGood(this))
-			{
+			if(that._isSelectedGood(this))
+			{	
 				$(this).removeClass(this.CLASS_GOOD);
 				//removeScrappyId(this);
 				//Stop the event from registering a click on the outer div
-				event.stopPropagation();
 				console.log('click case 1');
 				console.log(this);
 			}
 			
 			//Case 2 - Currently: Selected as maybe, Now: select as good
-			else if(this._isSelectedSuggestion(this))
+			else if(that._isSelectedSuggestion(this))
 			{
-			
 				//Highlight as good
-				$(this).removeClass(this.CLASS_SUGGESTION);
-				$(this).addClass(this.CLASS_GOOD);
-				highlightSimilarLinks(this);
+				$(this).removeClass(that.CLASS_SUGGESTION);
+				$(this).addClass(that.CLASS_GOOD);
+				that.highlightSimilarLinks(that);
 
 				//Name
 				//this._addScrappyId(this);
-				
-				//Don't bubble click up to enclosing divs
-				event.stopPropagation();
 				
 				console.log('click case 2');
 				console.log(this);
@@ -715,22 +718,19 @@ Functions to start content template mode
 			else 
 			{
 				//Highlight as good
-				$(this).addClass(this.CLASS_GOOD);
-				var sim = getSimilarLinks(this);
+				$(this).addClass(that.CLASS_GOOD);
+				var sim = that.getSimilarLinks(this);
 				for(var i = 0; i < sim.length; i++){
-					var obj = sim[i];
-					$(obj).removeClass(this.CLASS_INACTIVE_HOVER);
-					$(obj).removeClass(this.CLASS_OPAQUE);
+					var $obj = $(sim[i]);
+					$obj.removeClass(that.CLASS_INACTIVE_HOVER);
+					$obj.removeClass(that.CLASS_OPAQUE);
 				}
 
 				//this._addScrappyId(this);
-				
-				highlightSimilarLinks(this);
-				//Don't bubble click up to outer divs
-				event.stopPropagation();
+				that.highlightSimilarLinks(this,sim);
 				
 				//Click fires mouseover event
-				$(this).removeClass(this.CLASS_INACTIVE_HOVER);							
+				$(this).removeClass(that.CLASS_INACTIVE_HOVER);							
 				
 				console.log('click case 3');
 				console.log(this);

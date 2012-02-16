@@ -17,8 +17,7 @@ var scrappyhtml = "<div id='scrappyMinDiv' title='Maximize Scrappy' style='color
 					<div class='scr_step scrappy_sidebar'>Step 1: </div>\
 					<p class='scrappy_sidebar'>Navigate to a website that has content that you wish to scrape, and click continue.</p>\
 					<div class='scr_navigation scrappy_sidebar'>\
-						<a class='scr_button scr_forward scrappy_sidebar' onclick='$(\'.scr_slider\').attr(\'class\', \'scrappy_sidebar scr_slider scr_s2\')'>Continue &gt;&gt;\
-						</a>\
+						<a class='scr_button scr_forward scrappy_sidebar'>Continue &gt;&gt;</a>\
 					</div>\
 				</div>\
 			</div>\
@@ -27,10 +26,8 @@ var scrappyhtml = "<div id='scrappyMinDiv' title='Maximize Scrappy' style='color
 				<div class='scrappy_sidebar scr_step'>Step 2:</div>\
 				<p class ='scrappy_sidebar scrappy_sidebar'>Select elements on the page that you would like to scrape</p>\
 				<div class='scr_navigation scrappy_sidebar'>\
-					<a class='scr_button scr_back scrappy_sidebar' onclick='$(\'.scr_slider\').attr(\'class\', \'scrappy_sidebar scr_slider scr_s1\')'>&lt;&lt;Back\
-					</a>\
-					<a class='scr_button scr_forward scrappy_sidebar' onclick='$(\'.scr_slider\').attr(\'class\', \'scrappy_sidebar scr_slider scr_s3\')'>Continue &gt;&gt;\
-					</a>\
+					<a class='scr_button scr_back scrappy_sidebar'>&lt;&lt;Back</a>\
+					<a class='scr_button scr_forward scrappy_sidebar'>Continue &gt;&gt;</a>\
 					</div>\
 				</div>\
 			</div>\
@@ -38,30 +35,37 @@ var scrappyhtml = "<div id='scrappyMinDiv' title='Maximize Scrappy' style='color
 				<div class='scr_content scrappy_sidebar'>\
 				<div class='scrappy_sidebar scr_step'>Step 3: </div>\
 				<p class='scrappy_sidebar'>Navigate to a webpage with links you would like to scrape.  Select the links you wish to scrape.</p>\
-				<a id='scr_link_selection' href='#' class='scrappy_sidebar scr_button'>Use this page</a>'\
+				<a id='scr_link_selection' href='#' class='scrappy_sidebar scr_button'>Use this page</a>\
 				<p class='scrappy_sidebar'>You may also enter custom links here, one per line:</p>\
 				<textarea rows='3' cols='18'></textarea>\
 				<div class='scr_navigation scrappy_sidebar'>\
-					<a class='scr_button scr_back scrappy_sidebar' onclick='$(\'.scr_slider\').attr(\'class\', \'scrappy_sidebar scr_slider scr_s2\')'>&lt;&lt;Back\
-					</a>\
-					<a class='scr_button scr_forward scrappy_sidebar' onclick='$(\'.scr_slider\').attr(\'class\', \'scrappy_sidebar scr_slider scr_s4\')'>Continue &gt;&gt;\
-					</a>\
+					<a class='scr_button scr_back scrappy_sidebar'>&lt;&lt;Back</a>\
+					<a class='scr_button scr_forward scrappy_sidebar'>Continue &gt;&gt;</a>\
 					</div>\
 				</div>\
 			</div>\
 			<div class='scr_slide scr_s4 scrappy_sidebar' view='4'>\
 				<div class='scr_content scrappy_sidebar'>\
 				Select output types:\
-				<ul>\
-					<li class='scr_clickable' onclick='var c=$(this).find(\'input\')[0];c.checked=!c.checked;\'><input type=\'checkbox\' name=\'scrappy_file_type\' value=\'csv\' checked=\'true\' />CSV</li>\
-					<li class='scr_clickable' onclick='var c=$(this).find(\'input\')[0];c.checked=!c.checked;\'><input type=\'checkbox\' name=\'scrappy_file_type\' value=\'json\'/>JSON</li>\
+				<ul class='scrappy_sidebar'>\
+					<li class='scr_filetype scrappy_sidebar'>\
+						<input type='checkbox' class='scrappy_sidebar' name='scrappy_file_type' value='csv' />\
+						CSV\
+					</li>\
+					<li class='scr_filetype scrappy_sidebar'>\
+						<input type='checkbox' class='scrappy_sidebar' name='scrappy_file_type' value='json'/>\
+						JSON\
+					</li>\
 				</ul>\
 				<div class='scr_navigation scrappy_sidebar'>\
-					<a class='scr_button scr_back scrappy_sidebar' onclick='$(\'.scr_slider\').attr(\'class\', \'scrappy_sidebar scr_slider scr_s3\')'>&lt;&lt;Back\
-					</a>\
-					<a class='scr_button scr_forward scr_disabled scrappy_sidebar scr_scrape' onclick='$(\'.scr_slider\').attr(\'class\', \'scrappy_sidebar scr_slider scr_s4\')'>Scrape!\
-					</a>\
+					<a class='scr_button scr_back scrappy_sidebar'>&lt;&lt;Back</a>\
+					<a class='scr_button scr_forward scr_disabled scrappy_sidebar scr_scrape')'>Scrape!</a>\
 				</div>\
+				</div>\
+			</div>\
+			<div class='scr_slide scr_s5 scrappy_sidebar' view='5'>\
+				<div class='scr_content scrappy_sidebar'>\
+						<span class='scrappy_sidebar'>Busy Scraping...</span>\
 				</div>\
 			</div>\
 		</div>\

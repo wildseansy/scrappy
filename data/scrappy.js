@@ -6,6 +6,6 @@ self.on('message', function(status){
 	//message = scrape_progress_52
 	}else if(status.substring(0,16) == 'scrape_progress_'){
 		updateScrapeProgress(status);
-	}else alert(status);
+	}
 });
 

@@ -1,5 +1,3 @@
-
-
 var scrappyview = {
 	WELCOME: 0,
 	LINK_MODE: 2,
@@ -43,7 +41,7 @@ var scrappyview = {
 		"1": "getstarted_view",
 		"2": "template_view",
 		"3": "link_view",
-		"4": "comfirm_view",
+		"4": "confirm_view",
 		"5": "busyscraping_view",
 		"disable": "disable"
 	},
@@ -54,15 +52,19 @@ var scrappyview = {
 		$('.scr_forward').click(function(e){
 			var view_num = parseInt($(e.currentTarget).closest(".scr_slide").attr("view"));
 			var success = that[that.view_map[view_num]].unrender(that);
+			if($(this).hasClass("disabled")){
+				return;
+			}
+			console.log("success: "+ success);
 			if(success){
 				view_num++;
 				that[that.view_map[view_num]].render(that);
-				console.log(view_num);
-				console.log(that.view_map[view_num]);
+				console.log("view "+view_num+": "+that.view_map[view_num]);
 				$('.scr_slider').attr('class', 'scrappy_sidebar scr_slider scr_s'+view_num);
 			}else{
 				return;
 			}
+			that.step_num=view_num;
 			datamgr.save(view_num.toString(),datamgr.STATE);
 		});
 		$('.scr_back').click(function(e){
@@ -76,6 +78,7 @@ var scrappyview = {
 			}else{
 				return;
 			}
+			that.step_num=view_num;
 		});
 		$("#scr_link_selection").click(function(){
 			scrapemgr.startLinkSelectionMode();
@@ -107,6 +110,17 @@ var scrappyview = {
 		$("#scrappy_link-ready").click(function(){
 			scrapemgr.startLinkSelectionMode();
 		});
+		
+		$(".scr_filetype input").click(function(e){
+			var checkbox = $(e.currentTarget).find("input"),
+				list = $(e.currentTarget).closest("ul"),
+				checked=list.find("input:checked");
+			if(checked.length>0){
+				$(".scr_scrape").removeClass("scr_disabled");
+			}else{
+				$(".scr_scrape").addClass("scr_disabled");
+			}
+		});
 	},
 	_urlTextAreaInit: function (){
 		$("#scrappy_example_URL").submit(function(){
@@ -123,7 +137,6 @@ var scrappyview = {
 			return false;
 		});
 	},
-	
 	getstarted_view: {
 		render: function(controller){
 			$("#scrappy_title").html("Scrappy - Welcome!");
@@ -154,13 +167,9 @@ var scrappyview = {
 	},
 	link_view: {
 		render: function(controller){
-			//save stuff from last view:
-			console.log("link_view");
 			scrapemgr.disableSuggest();
-			$("#scrappy_link-ready").show();
-			$("#scrappy_title").html("Scrappy - Link Selection");
-			$("#scrappy_ok-button").html("Continue &gt;&gt;");
-			$("#scrappy_inst").html("");
+			$("#scrappy_title").text("Scrappy - Link Selection");
+			return true;
 		},
 		unrender: function(closed){
 			return true;
@@ -168,30 +177,40 @@ var scrappyview = {
 	},
 	confirm_view: {
 		render: function(controller){
-			console.log("confirm_view");
-			$("#scrappy_title").html("Scrappy - Ready to Scrape");
-			$("#scrappy_file_type").show();
-			$("#scrappy_ok-button").html("Scrape!");
-			$("#scrappy_inst").html(ready_inst);
+			$("#scrappy_title").text("Scrappy - Ready to Scrape");
 		},
 		unrender: function(closed){
 			var file_type_str = "";
-			$("#scrappy_file_type input:checked").each(function() {
+			if(closed){ return true;}
+			$(".scr_filetype input:checked").each(function() {
 				file_type_str+=$(this).val()+" ";
 			});
 			if(file_type_str ==""){
 				alert("No file type selected");
 				return false;
 			}
-
-			datamgr.save(file_type_str,'scrape');					
-			//alert("Scraping...this may take a couple minutes");
+			datamgr.save(file_type_str,'scrape');
 		}
 	},
 	busyscraping_view:	{
 		render: function(controller){
-			$("#scrappyMenu").html("<p class='scrappy_sidebar'>Busy scraping...</p>");
-			this.progressBar.add();
+			$("#scrappy_title").text("Scrappy - Scraping");
+			controller.progressBar.add();
+			var busy_scraping_anim = function(){
+				var $elem = $("#progress_text");
+				if($elem.attr("scrfaded")===undefined){
+					$elem.css("opacity","0");
+					$elem.attr("scrfaded","faded");
+				}else{
+					$elem.css("opacity","100");
+					$elem.removeAttr("scrfaded");
+				}
+				setTimeout(busy_scraping_anim,1500);
+			};
+			var $elem = $("#progress_text");
+			$elem.css("opacity","0");
+			$elem.attr("scrfaded","faded");
+			busy_scraping_anim();
 		},
 		unrender: function(closed){
 			return true;
@@ -221,40 +240,11 @@ var scrappyview = {
 				//Create Div
 				$('body').append('<div id="scrape_blackout"></div>');
 				$('body').append('<div id="scrape_progress"><span id="progress_text">Scraping...</span><div id="scrappy_progressbar"></div></div>');
-				
-				//Background blackout
-				$('#scrape_blackout').css("top","0px");
-				$('#scrape_blackout').css("left","0px");
-				$('#scrape_blackout').css("width","100%");
-				$('#scrape_blackout').css("height","100%");
-				$('#scrape_blackout').css("background-color","black");
-				$('#scrape_blackout').css("opacity",0.7);
-				$('#scrape_blackout').css("position","fixed");
-				$('#scrape_blackout').css("margin","0px");
-				$('#scrape_blackout').css("zIndex",2147483645);
-				
-				//Progress Box
-				$('#scrape_progress').css("position","fixed");	
-				$('#scrape_progress').css("top","100px");
-				$('#scrape_progress').css("left","300px");
-				$('#scrape_progress').css("height","80px");
-				$('#scrape_progress').css("width","500px");
-				$('#scrape_progress').css("zIndex",2147483646);
-				$('#scrape_progress').css("background-color","white");
-				$('#scrape_progress').css("text-align","center");
-				$('#scrape_progress').css("border","1px solid black");
-				
-				//Progress Bar			
-				$('#scrappy_progressbar').css("margin","auto");
-				$('#scrappy_progressbar').css("height","40px");
-				$('#scrappy_progressbar').css("width","400px");
-				$('#scrappy_progressbar').css("position","relative");
-				$('#scrappy_progressbar').css("zIndex",2147483647);		
-		
 				//Add Progressbar
 				$("#scrappy_progressbar").progressbar({
 					value: 0
 				});
+				this.updateView(Math.floor(Math.random()*100));	
 				
 				/*
 				//For debugging
@@ -262,7 +252,7 @@ var scrappyview = {
 				$('#progressBarBtn').click(function(){
 					console.log('clicked progress bar button');
 					console.log('right after print click');
-					updateProgressBar(Math.floor(Math.random()*100));			
+					updateView(Math.floor(Math.random()*100));			
 					console.log('after clicking progress bar button');
 				});*/
 			},
